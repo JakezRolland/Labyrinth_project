@@ -46,18 +46,38 @@ public class labyrinth{
 			System.out.print("|");
 			
 			//display rightwall of the cell i j
+			
 			for (int j = 0; j < columns ; j++){
 			
-				//System.out.print("   |");
-				System.out.print(" "+ labyrinth[i][j].getNumber() +" |");
-			
+			//condition on the rightwall
+				//border condition
+				if (j == columns-1) {
+					System.out.print(" "+ labyrinth[i][j].getNumber() +" |");
+				}
+				//is there a wall?
+				else if (labyrinth[i][j].getRightwall() == true){
+						System.out.print(" "+ labyrinth[i][j].getNumber() +" |");
+				
+				}
+				//if not, do not print a wall
+				else  System.out.print(" "+ labyrinth[i][j].getNumber() +"  ");
 			}
 			System.out.println("");
 			System.out.print("+");
 			//dsplay bottomwall of the cell i j
-			for (int j = 0; j < columns ; j++){
+			//condition on the bottomwall
 			
-				System.out.print("---+");
+			for (int j = 0; j < columns ; j++){
+				//border condition
+				if(i == lines-1) {
+					System.out.print("---+");
+					}
+				//is there a wall?
+				else if(labyrinth[i][j].getBottomwall() == true){
+						System.out.print("---+");
+				}
+				//if not, do not print a wall
+				else 	System.out.print("   +");
 			
 			}
 			

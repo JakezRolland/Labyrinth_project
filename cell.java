@@ -13,7 +13,7 @@ public class cell {
 	//constructor of the "cell" objects
 	
 	public cell(int number) {
-		this.rightwall = true;
+		this.rightwall = false;
 		this.bottomwall = true;
 		this.number = number;
 	}
