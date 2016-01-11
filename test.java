@@ -3,9 +3,9 @@ public class test {
 
 	public static void main(String[] args){
 	
-	cell cell1 = new cell(1);
+		labyrinth lab = new labyrinth(4,6);
 	
-	System.out.println(cell1);
+		lab.afficher();
 	
 	}
 
