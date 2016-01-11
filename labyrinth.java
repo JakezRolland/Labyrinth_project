@@ -52,15 +52,19 @@ public class labyrinth{
 			//condition on the rightwall
 				//border condition
 				if (j == columns-1) {
-					System.out.print(" "+ labyrinth[i][j].getNumber() +" |");
+					//System.out.print(" "+ labyrinth[i][j].getNumber() +" |");
+					System.out.print("   |");
 				}
 				//is there a wall?
 				else if (labyrinth[i][j].getRightwall() == true){
-						System.out.print(" "+ labyrinth[i][j].getNumber() +" |");
-				
+						//System.out.print(" "+ labyrinth[i][j].getNumber() +" |");
+						System.out.print("   |");
 				}
 				//if not, do not print a wall
-				else  System.out.print(" "+ labyrinth[i][j].getNumber() +"  ");
+				else  {//System.out.print(" "+ labyrinth[i][j].getNumber() +"  ");
+						System.out.print("   |");
+						}
+			
 			}
 			System.out.println("");
 			System.out.print("+");
