@@ -1,3 +1,7 @@
+import java.lang.Math; 
+
+
+
 
 public class labyrinth{
 
@@ -126,13 +130,44 @@ public class labyrinth{
 		
 		System.out.print("");
 		
-	
-	
-	
-	
-	
 	}
 
+	public int[][][] walls_list(){
+	
+		int[][][] walls = new int[10000][2][2];
+		//indice wall
+		int ind_w=0 ;
+
+		for (int i=0 ; i < lines ; i++){
+		
+				for (int j = 0; j < columns ; j++){
+			
+					if (grille[i][j].getRightwall() == true) {
+						
+						walls[ind_w][0][0] = i;
+					
+						walls[ind_w][0][1] = j;
+						walls[ind_w][1][0] = i;
+						walls[ind_w][1][1] = j+1;
+						ind_w++;
+					}
+					if (grille[i][j].getBottomwall() == true) {
+						
+						walls[ind_w][0][0] = i;
+						walls[ind_w][0][1] = j;
+						walls[ind_w][1][0] = i+1;
+						walls[ind_w][1][1] = j;
+						ind_w++;
+					}
+				
+				
+				}
+	
+		}
+		
+		
+	return walls;
+	}
 
 
 
