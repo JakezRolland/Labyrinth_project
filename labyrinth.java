@@ -1,5 +1,5 @@
 import java.lang.Math; 
-
+import java.util.ArrayList;
 
 
 
@@ -13,12 +13,18 @@ public class labyrinth{
 	int columns ;
 	int lines ; 
 	cell [][] grille ;
+	int[] numbers;
+	
+	
 	
 	public labyrinth( int lines, int columns) {
 	
 		
 		this.columns = columns;
 		this.lines = lines;
+		numbers = new int[columns*lines];
+		for (int k = 0;k<lines*columns;k++){numbers[k] = k;}
+		
 		grille = new cell[lines][columns];
 		for (int i=0 ; i < lines ; i++){
 		
@@ -132,43 +138,117 @@ public class labyrinth{
 		
 	}
 
-	public int[][][] walls_list(){
+
+	// this function find the walls in the grid and gives the coordintes of the walls
+	public ArrayList<int[][]> walls_list(){
+		ArrayList<int[][]> walls = new ArrayList<int[][]>() ;
+		
 	
-		int[][][] walls = new int[10000][2][2];
+	
 		//indice wall
 		int ind_w=0 ;
-
+	
 		for (int i=0 ; i < lines ; i++){
 		
 				for (int j = 0; j < columns ; j++){
 			
 					if (grille[i][j].getRightwall() == true) {
-						
-						walls[ind_w][0][0] = i;
-					
-						walls[ind_w][0][1] = j;
-						walls[ind_w][1][0] = i;
-						walls[ind_w][1][1] = j+1;
+						int[][] tmp = new int[2][2];
+						System.out.println(i+" "+j+" right wall");
+						tmp[0][0] = i;
+						tmp[0][1] = j;
+						tmp[1][0] = i;
+						tmp[1][1] = j+1;
+						walls.add(tmp);
 						ind_w++;
 					}
 					if (grille[i][j].getBottomwall() == true) {
-						
-						walls[ind_w][0][0] = i;
-						walls[ind_w][0][1] = j;
-						walls[ind_w][1][0] = i+1;
-						walls[ind_w][1][1] = j;
+						int[][] tmp = new int[2][2];
+						System.out.println(i+" "+j+" bottom wall");
+						tmp[0][0] = i;
+						tmp[0][1] = j;
+						tmp[1][0] = i+1;
+						tmp[1][1] = j;
+						walls.add(tmp);
 						ind_w++;
 					}
 				
+				
+			
 				
 				}
 	
 		}
 		
 		
+		for (int i = 0; i< walls.size() ; i++){
+			
+			
+			/*
+			System.out.print(" "+walls.get(i)[0][0]);
+			System.out.print(" "+walls.get(i)[0][1]);
+			System.out.print(" "+walls.get(i)[1][0]);
+			System.out.println(" "+walls.get(i)[1][1]);
+			*/
+			
+		}
+		
+			
+		
+	
+		
+		
 	return walls;
 	}
-
-
-
+	
+	public void labyrinth_shaper(){
+		
+		ArrayList<int[][]> wallslist ;
+		int rand;
+		cell cell1;
+		cell cell2;
+		int area1;
+		int area2;
+		
+		
+		while (this.numbers.length != 1){
+			wallslist = this.walls_list();
+			rand = (int)Math.floor(Math.random()*wallslist.length);
+			//
+			cell1=grille[wallslist[rand][0][0]][wallslist[rand][0][1]];
+			cell2=grille[wallslist[rand][1][0]][wallslist[rand][1][1]];
+			//we found out what type of wall we are studying
+			
+			
+			if (cell1.getArea() != cell2.getArea()){
+				
+				this.modif_mur_entre(wallslist[rand][0][0],wallslist[rand][0][1],wallslist[rand][1][0],wallslist[rand][1][1], false);
+				area1 = grille[wallslist[rand][0][0]][wallslist[rand][0][1]].getArea();
+				area2 = grille[wallslist[rand][1][0]][wallslist[rand][1][1]].getArea();
+				
+				//change the area code of the cells
+				for (int i=0 ; i < lines ; i++){
+		
+					for (int j = 0; j < columns ; j++){
+			
+						if (grille[i][j].getArea() == area2){
+							grille[i][j].setArea(area1);
+						}
+			
+				
+			
+					}
+			
+				}
+				
+			}
+			
+		}
+	}
+	
 }
+	
+
+
+
+

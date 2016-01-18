@@ -8,14 +8,16 @@ public class cell {
 	boolean rightwall ;
 	boolean bottomwall;
 	int number;
+	int area;
 	
 	
 	//constructor of the "cell" objects
 	
-	public cell(int number) {
+	public cell(int number ) {
 		this.rightwall = true;
 		this.bottomwall = true;
 		this.number = number;
+		this.area = number;
 	}
 
 	//methods
@@ -32,6 +34,11 @@ public class cell {
 		this.bottomwall = bottomwall;
 		
 	}
+	public void setArea(int area){
+	
+		this.area = area;
+		
+	}
 	//getters
 
 	public boolean getRightwall(){
@@ -44,6 +51,9 @@ public class cell {
 	
 	public int getNumber(){
 		return number ;
+	}
+	public int getArea(){
+		return area ;
 	}
 	
 	//print
