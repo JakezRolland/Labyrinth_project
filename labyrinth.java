@@ -1,6 +1,7 @@
 import java.lang.Math; 
 import java.util.ArrayList;
-
+import java.io.*;
+import java.util.Scanner;
 
 
 public class labyrinth{
@@ -20,8 +21,8 @@ public class labyrinth{
 	
 	public labyrinth( int lines, int columns) {
 	
-		player player1 = new player(3,4,"jakez");
-		System.out.println(player1.getX());
+		player1 = new player(3,4,"jakez");
+		
 		this.columns = columns;
 		this.lines = lines;
 		numbers = new int[columns*lines];
@@ -42,6 +43,10 @@ public class labyrinth{
 			}
 			
 		}
+	}
+	
+	public String get_player(){
+		return this.player1.name;
 	}
 	//on va ouvrir un mur entre deux cellules, il faut savoir quel mur ouvrir de quelle cellulee
 	public  void modif_mur_entre(int i1, int j1 ,int i2, int j2, boolean statwall){
@@ -75,7 +80,7 @@ public class labyrinth{
 	}
 		
 	
-	
+	//return an arraylst of the different area' numbers of the cells in the grid
 	public ArrayList<Integer> getAreas(){
 		
 		int k=0;
@@ -100,9 +105,6 @@ public class labyrinth{
 				areas.get(0);
 				}
 			
-				
-				
-			
 			}
 			
 		}
@@ -111,7 +113,7 @@ public class labyrinth{
 	
 	
 	public void afficher() {
-	
+		System.out.println(player1);
 		System.out.println("");
 		System.out.print("+");
 		// display the up wall of the grille
@@ -137,8 +139,8 @@ public class labyrinth{
 				
 				if (j == columns-1) {
 					
-					if(i==3 && j==4){
-						System.out.print(" A");
+					if(i==player1.get_i() && j==player1.get_j()){
+						System.out.print(" O");
 						System.out.print(" |");
 						}
 					else System.out.print("   |");
@@ -146,8 +148,8 @@ public class labyrinth{
 				//is there a wall?
 				else if (grille[i][j].getRightwall() == true){
 						
-						if(i==3 && j==4){
-						System.out.print(" A");
+						if(i==player1.get_i() && j==player1.get_j()){
+						System.out.print(" O");
 						System.out.print(" |");
 						}
 						else System.out.print("   |");
@@ -156,8 +158,8 @@ public class labyrinth{
 				}
 				//if not, do not print a wall
 				else  {
-						if(i==3 && j==4){
-						System.out.print(" A");
+						if(i==player1.get_i() && j==player1.get_j()){
+						System.out.print(" O");
 						System.out.print("  ");
 						}
 						else System.out.print("    ");
@@ -257,6 +259,7 @@ public class labyrinth{
 	return walls;
 	}
 	
+	//open the walls of the grid the way it give a labyrinth with a solution
 	public void labyrinth_shaper(){
 		
 		ArrayList<int[][]> wallslist = this.walls_list(); ;
@@ -306,6 +309,44 @@ public class labyrinth{
 			
 		}
 	}
+	
+	public void game(){
+		String scandirection;
+		String direction;
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Up : Z / Down : S / Left : Q / Right : D");
+		
+		while(true){
+			direction = scan.nextLine();
+		
+			System.out.println("");
+			 if ( direction.equals("z") || direction.equals("Z"))
+			
+				{	System.out.println("up"); 
+				this.player1.goUp();
+					
+				}
+			
+			else if ( direction.equals("s") || direction.equals("S"))
+				{ this.player1.goDown();
+				}
+			else if ( direction.equals("q") || direction.equals("Q"))
+				{ this.player1.goLeft();
+				}
+			else if ( direction.equals("d") || direction.equals("D"))
+				{ this.player1.goRight();
+				}
+			else { System.out.println(" pas une direction");}
+			System.out.println(player1);
+			this.afficher();
+			
+			
+		
+		
+		}
+	
+	}
+	
 	
 }
 	
